@@ -50,11 +50,23 @@ router.post('/', async(req, res) => {
 router.put('/:id', async(req, res) => {
   // update a category by its `id` value
   try{
+    //const categoryId = req.params.id
+    const category = await Category.findAll({
+      where:{
+         id: req.params.id // check
+      },
+      include:[{model:Product}]
+    })
+      if(category.length===0){
+        return res.status(404).json({error:`Category id not found`})
+      }
+    
   const catId = req.params.id
   Category.update(req.body,{
     where:{id : catId}
   })
   res.status(200).json({Success:`Category id ${catId} updated`})
+
 }catch(err){
   res.status(500).json({error:'Something went wrong'})
 }

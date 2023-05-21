@@ -37,23 +37,26 @@ router.get('/:id', async(req, res) => {
 router.post('/', (req, res) => {
   // create a new tag
   const newTag = Tag.create({tag_name : req.body.tag_name})
-  res.json({Success: `New Tag ${newTag} Created`})
+  res.json({Success: `New Tag Created`})
 });
 
 router.put('/:id', async(req, res) => {
   // update a tag's name by its `id` value
   try{
+    const tag = await Tag.findAll({
+      where:{
+         id: req.params.id // check
+      },
+      include:{model:Product, through: ProductTag}})
+      if(tag.length===0){
+        return res.status(404).json({error:'Tag not found'})
+      }
     const tagId = req.params.id
     Tag.update(req.body,{
       where:{id : tagId}
     })
-    if (!tagId) {
-      res.status(400).json({Error:`Tag id ${tagId} not found`})
-    }
-    
-    res.status(200).json({Success:`Tag id ${tagId} updated`})
-  }
-  catch(err){
+    res.status(200).json({Success:`Category id ${tagId} updated`})
+  }catch(err){
     res.status(500).json({error:'Something went wrong'})
   }
   
