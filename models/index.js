@@ -7,7 +7,7 @@ const ProductTag = require('./ProductTag');
 // Products belongsTo Category
 
 Product.belongsTo(Category,{
-  onDelete:'Cascade'
+onDelete:'Cascade'
 })
 
 // Categories have many Products

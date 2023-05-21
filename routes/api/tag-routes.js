@@ -47,7 +47,7 @@ router.put('/:id', async(req, res) => {
     Tag.update(req.body,{
       where:{id : tagId}
     })
-    res.status(200).json({Success:`Category id ${tagId} updated`})
+    res.status(200).json({Success:`Tag id ${tagId} updated`})
   }catch(err){
     res.status(500).json({error:'Something went wrong'})
   }
