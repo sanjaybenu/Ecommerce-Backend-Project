@@ -85,7 +85,7 @@ router.delete('/:id', async(req, res) => {
       if(!catDeleted){
         return res.status(404).json({error:'Category not found'})
       }
-    res.status(200).json({Success: `Product id # ${catId} is deleted`})
+    res.status(200).json({Success: `Category id # ${catId} is deleted`})
   }
   catch(err){
     res.status(500).json(err)
